@@ -2,12 +2,30 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import { useState } from "react";
 import { Button, Text, Icon, Input } from "react-native-elements";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+const auth = getAuth();
 
 export function SignInScreen({ navigation }: any) {
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
+
+  function handleSignIn() {
+    try {
+      signInWithEmailAndPassword(auth, values.email, values.password).then(
+        (userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          // ...
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -28,7 +46,7 @@ export function SignInScreen({ navigation }: any) {
           secureTextEntry={true}
           leftIcon={<Icon name="lock" type="feather" size={24} />}
         />
-        <Button title="SIGN IN" onPress={() => console.log("Sign in")} />
+        <Button title="SIGN IN" onPress={handleSignIn} />
         <View style={styles.spacer} />
         <Text style={styles.question}>Don't have an account?</Text>
         <Button
