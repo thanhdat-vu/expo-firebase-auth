@@ -1,10 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, View } from "react-native";
+import { useState } from "react";
+import { Button, Text, Icon, Input } from "react-native-elements";
 
-export function SignInScreen() {
+export function SignInScreen({ navigation }: any) {
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+  });
+
   return (
     <View style={styles.container}>
-      <Text>Sign in screen!</Text>
+      <Text h3>Sign in</Text>
+      <View style={styles.controls}>
+        <Input
+          placeholder="Email"
+          value={values.email}
+          onChangeText={(email: string) => setValues({ ...values, email })}
+          leftIcon={<Icon name="mail" type="feather" size={24} />}
+        />
+        <Input
+          placeholder="Password"
+          value={values.password}
+          onChangeText={(password: string) =>
+            setValues({ ...values, password })
+          }
+          secureTextEntry={true}
+          leftIcon={<Icon name="lock" type="feather" size={24} />}
+        />
+        <Button title="SIGN IN" onPress={() => console.log("Sign in")} />
+        <View style={styles.spacer} />
+        <Text style={styles.question}>Don't have an account?</Text>
+        <Button
+          title="SIGN UP"
+          type="outline"
+          onPress={() => navigation.navigate("Sign Up")}
+        />
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -13,8 +45,23 @@ export function SignInScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 40,
+    paddingHorizontal: 20,
+  },
+  controls: {
+    flex: 1,
+    width: "100%",
+  },
+  spacer: {
+    flex: 1,
+    minHeight: 200,
+  },
+  question: {
+    textAlign: "center",
+    fontSize: 16,
+    marginBottom: 16,
   },
 });
