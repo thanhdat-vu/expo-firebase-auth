@@ -7,15 +7,17 @@ export const useAuth = () => {
   const [user, setUser] = useState<User>();
   
   useEffect(() => {
-    const unsubscribeFromAuthStateChanged = onAuthStateChanged(auth, (user) => {
+    const unsubscribeAuthStateChanged = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
       } else {
         setUser(undefined);
       }
     });
-    return unsubscribeFromAuthStateChanged;
+    return unsubscribeAuthStateChanged;
   }, []);
 
-  return user;
+  return {
+    user,
+  };
 }

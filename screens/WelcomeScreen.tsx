@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
+export function WelcomeScreen() {
   return (
     <View style={styles.container}>
-      <Text>Home screen!</Text>
+      <Text>Welcome screen!</Text>
       <StatusBar style="auto" />
     </View>
   );
